@@ -1,0 +1,232 @@
+---
+title: "Mineração de dados"
+subtitle: "Encontro síncrono 10"
+author: 
+  - <br></br>Renata Oliveira
+date: '30/03/21'
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["xaringan-themer.css", "slides.css"]
+    nature:
+      ratio: "16:9"
+      highlightLines: true
+      highlightStyle: solarized-light
+      countIncrementalSlides: false
+      slideNumberFormat: |
+         <div class="progress-bar-container">
+           <div class="progress-bar" style="width: calc(%current% / %total% * 100%);">
+           </div>
+         </div>
+
+---
+
+```{r child = "setup.Rmd"}
+```
+
+```{r packages, echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(openintro)
+library(kableExtra)
+library(knitr)
+library(gmodels)
+library(factoextra)
+library(FactoMineR)
+library(ggplot2)
+library(ggcorrplot)
+library(psych)
+library(tidyverse)
+library(outliers)
+library(hrbrthemes)
+library(ggplot2)
+library(dplyr)
+library(plotly)
+library(viridis)
+library(hrbrthemes)
+library(knitr)
+library(kableExtra)
+loans_full_schema <- loans_full_schema %>%
+  mutate(grade = factor(grade, ordered = TRUE))
+```
+
+```{r xaringan-tile-view, echo=FALSE}
+xaringanExtra::use_tile_view()
+```
+
+```{r xaringan-editable, echo=FALSE}
+xaringanExtra::use_editable(expires = 1)
+```
+
+```{r xaringan-panelset, echo=FALSE, message=FALSE, warning=FALSE}
+xaringanExtra::use_panelset()
+xaringanExtra::style_panelset_tabs(panel_tab_font_family = "sans-serif")
+```
+
+```{r xaringanExtra-clipboard, echo=FALSE}
+htmltools::tagList(
+  xaringanExtra::use_clipboard(
+    button_text = "<i class=\"fa fa-clipboard\"></i>",
+    success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>",
+    error_text = "<i class=\"fa fa-times-circle\" style=\"color: #F94144\"></i>"
+  ),
+  rmarkdown::html_dependency_font_awesome()
+)
+```
+
+```{r xaringan-fit-screen, echo=FALSE}
+xaringanExtra::use_fit_screen()
+```
+
+```{r xaringan-extra-styles, echo=FALSE}
+xaringanExtra::use_extra_styles(
+  hover_code_line = TRUE,         #<<
+  mute_unhighlighted_code = TRUE  #<<
+)
+```
+
+```{css include=FALSE}
+.panelset {
+   --panel-tab-foreground: currentColor;
+   --panel-tab-background: unset;
+   --panel-tab-active-foreground: currentColor;
+   --panel-tab-active-background: unset;
+   --panel-tab-active-border-color: currentColor;
+   --panel-tab-hover-foreground: currentColor;
+   --panel-tab-hover-background: unset;
+   --panel-tab-hover-border-color: currentColor;
+   --panel-tab-inactive-opacity: 0.5;
+   --panel-tabs-border-bottom: #ddd;
+   --panel-tab-font-family: Sen;
+   --panel-tab-background-color-active: #fffbe0;
+   --panel-tab-border-color-active: #023d4d;
+}
+
+.panelset .panel-tabs .panel-tab > a {
+	color: #023d4d;
+}
+
+.panelset .panel-tabs {
+  font-size: 0.5rem;
+}
+```
+
+
+## Planejamento da disciplina
+
+.pull-left[
+### Discussões
+- Trabalhando com múltiplos dataframes
+- Mineração de dados 
+    - Análise de cluster
+    - PCA
+    - Análise de texto
+- Ética na análise de dados - **durante apresentação dos trabalhos**
+]
+
+.pull-right[
+### Atividades
+
+06/04 - Apresentações
+
+]
+
+---
+
+.midi[
+90%-100% - **Esforço notável**. O estudante compreende como aplicar os fundamentos considerados na análise, pode argumentar de maneira consistente, pode identificar fraquezas no argumento e pode comunicar claramente os resultados.
+
+80%-89% - **Bom esforço**. O estudante compreende a maioria dos conceitos, reúne um argumento adequado, identifica alguns pontos fracos de seu argumento e comunica claramente a maioria dos resultados aos outros.
+
+70%-79% - **Esforço para aprovação**. O estudante tem uma má compreensão dos conceitos em diversas áreas, tem alguma dificuldade em juntar resultados em um argumento convincente, e a comunicação dos resultados às vezes não é clara.
+
+60%-69% - **Esforço limítrofe**. O estudante está fazendo algum esforço, mas tem uma má compreensão de muitos conceitos e é incapaz de montar um argumento convincente. A comunicação dos resultados não é clara.
+
+Abaixo de 60% - O estudante não está fazendo um esforço suficiente.
+]
+
+---
+
+
+class: center, middle
+
+
+## Retrospecto
+
+---
+
+## Modelo conceitual da análise de dados
+
+![Modelo de Data Science](https://retaoliveira.github.io/relements/figures/dataR.png)
+
+---
+
+# Mineração de dados
+
+Data mining, ou mineração de dados, é a prática de examinar dados que já foram coletados – utilizando diversos tipos de algoritmos, normalmente de forma automática –, a fim de gerar novas informações e encontrar padrões.
+
+Consiste na habilidade de **identificar**, nos dados, os **padrões válidos, novos, potencialmente úteis e compreensíveis**, envolvendo **métodos estatísticos**, **ferramentas de visualização** e **técnicas de inteligência artificial**.
+
+---
+
+# Mineração de dados
+
+Considerando que minerar dados é um processo de transformar dados em informações úteis (dados mais valiosos a partir de dados complexos), alguns passos são realizados, como: **encontrar padrões**, **associações** e **anomalias gerais** nos dados.
+
+
+---
+
+# Mineração de dados
+
+Metodologias da ciência da computação, da estatística multivariada e de outras áreas de conhecimento para realizar seus estudos. 
+
+A mineração de dados é uma das etapas mais importantes da metodologia Knowledge Discovery in Databases (KDD), ou seja, descoberta de conhecimento das bases de dados
+
+A descoberta de conhecimento em bases de dados (KDD) pode ser definida como o processo de extração de informação a partir de dados registrados numa base de dados, um conhecimento implícito, previamente desconhecido, potencialmente útil e compreensível.
+
+---
+
+# Mineração de dados
+
+## Métodos
+
+Etapas:
+
+- definição clara do problema;    
+- a seleção de todas as fontes internas e externas de dados;   
+- e a preparação dos dados, que inclui o pré-processamento, reformatação dos dados;
+- implementação de métodos de análise; e   
+- análise dos resultados obtidos do processo de DM.   
+
+---
+
+# O que é segmentação de mercado?
+
+Segmentação de mercado é o processo de divisão da base de clientes em vários grupos de indivíduos que compartilham uma semelhança de diferentes maneiras que são relevantes para o marketing, tais como sexo, idade, interesses e hábitos de gastos diversos.
+
+
+---
+
+Pontos|	Entrega|	Atividade
+------|--------|-----------
+25|	09/02	|Construção de instrumentos de comunicação científica e organizacional por meio de RMarkdown como instrumento para produção de documentos estáticos e interativos, produção de websites, produção de dashboards, apresentações, livros e artigos científicos.
+25|	06/04|	Coleta, importação e tratamento de dados no R utilizando funções para manipulação e tratamento de dados. Estatística descritiva e mineração de dados.
+40|	13/04|	Projeto integrador que contemple como objetivo o entendimento de um problema e a implementação de R e RStudio para identificação, caracterização e diagnóstico de problemas e proposição de soluções em processos organizacionais e científicos.
+10| 13/04| Engajamento
+TOTAL:| |	100 pontos
+
+---
+
+class: middle, inverse
+
+# Atividade 5
+
+---
+
+class: middle
+
+#DÚVIDAS?
+
+**Tarefa da semana** 
+- Projeto integrador 2
+- Atividade 5
+

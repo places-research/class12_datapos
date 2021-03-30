@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Mineração de dados</title>
+    <meta charset="utf-8" />
+    <meta name="author" content=" Renata Oliveira" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <link href="libs/panelset/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset/panelset.js"></script>
+    <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view/tile-view.js"></script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"x613210212b54ea5a983511a3e60547f","expires":1}</script>
+    <script src="libs/himalaya/himalaya.js"></script>
+    <script src="libs/js-cookie/js.cookie.js"></script>
+    <link href="libs/editable/editable.css" rel="stylesheet" />
+    <script src="libs/editable/editable.js"></script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"<i class=\"fa fa-times-circle\" style=\"color: #F94144\"><\/i>"})</script>
+    <script src="libs/xaringanExtra_fit-screen/fit-screen.js"></script>
+    <link href="libs/xaringanExtra-extra-styles/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="slides.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Mineração de dados
+## Encontro síncrono 10
+### <br></br>Renata Oliveira
+### 30/03/21
+
+---
+
+
+
+
+
+layout: true
+  
+&lt;div class="my-footer"&gt;
+&lt;span&gt;
+&lt;a href="https://retaoliveira.github.io/places" target="_blank"&gt;https://retaoliveira.github.io/places&lt;/a&gt;
+&lt;/span&gt;
+&lt;/div&gt; 
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Planejamento da disciplina
+
+.pull-left[
+### Discussões
+- Trabalhando com múltiplos dataframes
+- Mineração de dados 
+    - Análise de cluster
+    - PCA
+    - Análise de texto
+- Ética na análise de dados - **durante apresentação dos trabalhos**
+]
+
+.pull-right[
+### Atividades
+
+06/04 - Apresentações
+
+]
+
+---
+
+.midi[
+90%-100% - **Esforço notável**. O estudante compreende como aplicar os fundamentos considerados na análise, pode argumentar de maneira consistente, pode identificar fraquezas no argumento e pode comunicar claramente os resultados.
+
+80%-89% - **Bom esforço**. O estudante compreende a maioria dos conceitos, reúne um argumento adequado, identifica alguns pontos fracos de seu argumento e comunica claramente a maioria dos resultados aos outros.
+
+70%-79% - **Esforço para aprovação**. O estudante tem uma má compreensão dos conceitos em diversas áreas, tem alguma dificuldade em juntar resultados em um argumento convincente, e a comunicação dos resultados às vezes não é clara.
+
+60%-69% - **Esforço limítrofe**. O estudante está fazendo algum esforço, mas tem uma má compreensão de muitos conceitos e é incapaz de montar um argumento convincente. A comunicação dos resultados não é clara.
+
+Abaixo de 60% - O estudante não está fazendo um esforço suficiente.
+]
+
+---
+
+
+class: center, middle
+
+
+## Retrospecto
+
+---
+
+## Modelo conceitual da análise de dados
+
+![Modelo de Data Science](https://retaoliveira.github.io/relements/figures/dataR.png)
+
+---
+
+# Mineração de dados
+
+Data mining, ou mineração de dados, é a prática de examinar dados que já foram coletados – utilizando diversos tipos de algoritmos, normalmente de forma automática –, a fim de gerar novas informações e encontrar padrões.
+
+Consiste na habilidade de **identificar**, nos dados, os **padrões válidos, novos, potencialmente úteis e compreensíveis**, envolvendo **métodos estatísticos**, **ferramentas de visualização** e **técnicas de inteligência artificial**.
+
+---
+
+# Mineração de dados
+
+Considerando que minerar dados é um processo de transformar dados em informações úteis (dados mais valiosos a partir de dados complexos), alguns passos são realizados, como: **encontrar padrões**, **associações** e **anomalias gerais** nos dados.
+
+
+---
+
+# Mineração de dados
+
+Metodologias da ciência da computação, da estatística multivariada e de outras áreas de conhecimento para realizar seus estudos. 
+
+A mineração de dados é uma das etapas mais importantes da metodologia Knowledge Discovery in Databases (KDD), ou seja, descoberta de conhecimento das bases de dados
+
+A descoberta de conhecimento em bases de dados (KDD) pode ser definida como o processo de extração de informação a partir de dados registrados numa base de dados, um conhecimento implícito, previamente desconhecido, potencialmente útil e compreensível.
+
+---
+
+# Mineração de dados
+
+## Métodos
+
+Etapas:
+
+- definição clara do problema;    
+- a seleção de todas as fontes internas e externas de dados;   
+- e a preparação dos dados, que inclui o pré-processamento, reformatação dos dados;
+- implementação de métodos de análise; e   
+- análise dos resultados obtidos do processo de DM.   
+
+---
+
+# O que é segmentação de mercado?
+
+Segmentação de mercado é o processo de divisão da base de clientes em vários grupos de indivíduos que compartilham uma semelhança de diferentes maneiras que são relevantes para o marketing, tais como sexo, idade, interesses e hábitos de gastos diversos.
+
+
+---
+
+Pontos|	Entrega|	Atividade
+------|--------|-----------
+25|	09/02	|Construção de instrumentos de comunicação científica e organizacional por meio de RMarkdown como instrumento para produção de documentos estáticos e interativos, produção de websites, produção de dashboards, apresentações, livros e artigos científicos.
+25|	06/04|	Coleta, importação e tratamento de dados no R utilizando funções para manipulação e tratamento de dados. Estatística descritiva e mineração de dados.
+40|	13/04|	Projeto integrador que contemple como objetivo o entendimento de um problema e a implementação de R e RStudio para identificação, caracterização e diagnóstico de problemas e proposição de soluções em processos organizacionais e científicos.
+10| 13/04| Engajamento
+TOTAL:| |	100 pontos
+
+---
+
+class: middle, inverse
+
+# Atividade 5
+
+---
+
+class: middle
+
+#DÚVIDAS?
+
+**Tarefa da semana** 
+- Projeto integrador 2
+- Atividade 5
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightLines": true,
+"highlightStyle": "solarized-light",
+"countIncrementalSlides": false,
+"slideNumberFormat": "<div class=\"progress-bar-container\">\n  <div class=\"progress-bar\" style=\"width: calc(%current% / %total% * 100%);\">\n  </div>\n</div>\n"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
